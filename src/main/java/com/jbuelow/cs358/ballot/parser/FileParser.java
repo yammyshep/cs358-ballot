@@ -4,7 +4,7 @@ import java.io.File;
 
 public abstract class FileParser implements Parser {
 	
-	private final File file;
+	protected final File file;
 	
 	public FileParser(String filename) {
 		this.file = new File(filename);
