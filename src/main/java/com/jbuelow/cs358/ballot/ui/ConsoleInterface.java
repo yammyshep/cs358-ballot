@@ -86,6 +86,14 @@ public class ConsoleInterface {
 		        	System.out.println("Winning candidate: " + election.getWinner().name());
 		        	break;
 		        case 's':
+		        	System.out.print("Type filename: ");
+			        try {
+						line = reader.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+						continue;
+					}
+			        
 		        	break;
 		        case 'n':
 		        	postCompute = false;
