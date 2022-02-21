@@ -13,6 +13,9 @@ public class Election {
 	private final List<Voter> voters;
 	private final Map<String, Candidate> candidates;
 	
+	private final List<Map<Candidate, Integer>> resultVotes;
+	private Candidate resultWinner;
+	
 	public Election() {
 		this(new ArrayList<Voter>());
 	}
@@ -20,6 +23,7 @@ public class Election {
 	public Election(List<Voter> voters) {
 		this.voters = voters;
 		this.candidates = new HashMap<String, Candidate>();
+		this.resultVotes = new ArrayList<Map<Candidate, Integer>>();
 	}
 
 	public void addVoters(List<Voter> voters) {
@@ -46,25 +50,48 @@ public class Election {
 		for (int round = 0; round < 3; round++) {
 			System.out.println();
 			System.out.println("== Round " + (round+1) + " ==");
-			if (remaining.size() <= 1) { break; }
+			if (remaining.size() <= 1) {
+				resultWinner = remaining.get(0);
+				break;
+			}
 			
 			Map<Candidate, Integer> votes = new HashMap<>();
 			remaining.forEach((candidate) -> {
 				votes.put(candidate, 0);
 			});
 			
+			final int[] totalVotesThisRound = new int[1]; // lambda below can only work with final values...
 			for (Voter v : voters) {
-				votes.compute(v.choices().get(round), (candidate, voteCount) -> {
-					if (voteCount == null) { return null; }
-					return voteCount + 1;
-				});
+				for (int i = 0; i < round+1; i++) {
+					if (remaining.contains(v.choices().get(i))) {
+						totalVotesThisRound[0]++;
+						int cvotes = votes.get(v.choices().get(i));
+						votes.put(v.choices().get(i), cvotes + 1);
+						break;
+					}
+				}
 			}
+			
+			resultVotes.add(round, votes);
 			
 			votes.forEach((candidate, voteCount) -> {
 				System.out.println(candidate.name() + ": " + voteCount);
 			});
 			
 			//TODO: if majority (50%)
+			final Candidate[] majorityVote = { null }; // final for lambda
+			votes.forEach((candidate, voteCount) -> {
+				if (voteCount >= (totalVotesThisRound[0] / 2)) {
+					majorityVote[0] =  candidate;
+				}
+			});
+			
+			if (majorityVote[0] != null) {
+				resultWinner = majorityVote[0];
+				System.out.println("Candidate won by majority vote: " + majorityVote[0].name());
+				return;
+			}
+			
 			
 			if (round >= 2) {
 				// Eliminate all but max
