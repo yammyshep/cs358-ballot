@@ -78,20 +78,13 @@ public class Election {
 				System.out.println(candidate.name() + ": " + voteCount);
 			});
 			
-			//TODO: if majority (50%)
-			final Candidate[] majorityVote = { null }; // final for lambda
 			votes.forEach((candidate, voteCount) -> {
 				if (voteCount >= (totalVotesThisRound[0] / 2)) {
-					majorityVote[0] =  candidate;
+					resultWinner = candidate;
+					System.out.println("Candidate won by majority vote: " + candidate.name());
+					return;
 				}
-			});
-			
-			if (majorityVote[0] != null) {
-				resultWinner = majorityVote[0];
-				System.out.println("Candidate won by majority vote: " + majorityVote[0].name());
-				return;
-			}
-			
+			});			
 			
 			if (round >= 2) {
 				// Eliminate all but max
