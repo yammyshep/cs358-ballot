@@ -7,6 +7,7 @@ import java.util.List;
 import com.jbuelow.cs358.ballot.data.Voter;
 import com.jbuelow.cs358.ballot.parser.Parser;
 import com.jbuelow.cs358.ballot.parser.ParserFactory;
+import com.jbuelow.cs358.ballot.ui.ConsoleInterface;
 
 class BallotCounter {
 
@@ -46,6 +47,9 @@ class BallotCounter {
 				System.out.println("=====  WARNING: There were errors in calculating this election!   =====");
 				System.out.println("===== Check the console for errors and retry before using results =====");
 			}
+		} else {
+			ConsoleInterface ui = new ConsoleInterface();
+			ui.start();
 		}
 		
 	}

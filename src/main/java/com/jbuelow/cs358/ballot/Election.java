@@ -25,6 +25,14 @@ public class Election {
 		this.candidates = new HashMap<String, Candidate>();
 		this.resultVotes = new ArrayList<Map<Candidate, Integer>>();
 	}
+	
+	public Candidate getWinner() {
+		if (resultWinner != null) {
+			return resultWinner;
+		} else {
+			throw new IllegalStateException("Election must be computed first.");
+		}
+	}
 
 	public void addVoters(List<Voter> voters) {
 		for (Voter vote : voters) {
@@ -93,6 +101,7 @@ public class Election {
 					if (highestVotes[0] == null || votes.get(highestVotes[0]) > voteCount) {
 						remaining.remove(highestVotes[0]);
 						highestVotes[0] = candidate;
+						resultWinner = candidate;
 					}
 				});
 			} else {
