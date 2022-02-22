@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Factory for generating the appropriate Parser object for a given filetype
+ *
+ */
 public class ParserFactory {
 	
 	private static Pattern extensionPattern = Pattern.compile("([^.]+)$");

@@ -8,6 +8,10 @@ import java.util.Map;
 import com.jbuelow.cs358.ballot.data.Candidate;
 import com.jbuelow.cs358.ballot.data.Voter;
 
+/**
+ * Handler object for holding all data for the actual election itself, as well as the logic to compute an election
+ *
+ */
 public class Election {
 	
 	private final List<Voter> voters;
@@ -67,11 +71,13 @@ public class Election {
 				break;
 			}
 			
+			// Create our votes map
 			Map<Candidate, Integer> votes = new HashMap<>();
 			remaining.forEach((candidate) -> {
 				votes.put(candidate, 0);
 			});
 			
+			// Count votes
 			final int[] totalVotesThisRound = new int[1]; // lambda below can only work with final values...
 			for (Voter v : voters) {
 				for (int i = 0; i < round+1; i++) {
@@ -84,12 +90,15 @@ public class Election {
 				}
 			}
 			
+			// Save our votes map as a result for this round
 			resultVotes.add(round, votes);
 			
+			// Print each candidate with its votes
 			votes.forEach((candidate, voteCount) -> {
 				System.out.println(candidate.name() + ": " + voteCount);
 			});
 			
+			// Check for majority vote
 			votes.forEach((candidate, voteCount) -> {
 				if (voteCount >= (totalVotesThisRound[0] / 2)) {
 					resultWinner = candidate;
@@ -98,6 +107,7 @@ public class Election {
 				}
 			});			
 			
+			// Run eliminations
 			if (round >= 2) {
 				// Eliminate all but max
 				final Candidate[] highestVotes = new Candidate[1]; // this needs to be final to use in lambda

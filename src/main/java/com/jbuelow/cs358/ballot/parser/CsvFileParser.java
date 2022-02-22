@@ -13,11 +13,14 @@ import com.jbuelow.cs358.ballot.data.Voter;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+/**
+ * Parses CSV formatted files into a list of voter objects
+ *
+ */
 public class CsvFileParser extends FileParser {
 
 	public CsvFileParser(String filename) {
 		super(filename);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

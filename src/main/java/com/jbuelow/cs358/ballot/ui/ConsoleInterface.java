@@ -13,6 +13,10 @@ import com.jbuelow.cs358.ballot.parser.Parser;
 import com.jbuelow.cs358.ballot.parser.ParserFactory;
 import com.jbuelow.cs358.ballot.writer.ElectionFileWriter;
 
+/**
+ * Interactive console interface class
+ *
+ */
 public class ConsoleInterface {
 	
 	public void start() {
@@ -22,6 +26,7 @@ public class ConsoleInterface {
 		while (running) {
 			Election election = new Election();
 			
+			// Loop prompt for before computation
 			boolean fileSelecting = true;
 			while (fileSelecting) {
 				System.out.print("Selecting files. Choose option [(A)dd file, (C)ompute Election, (E)xit]: ");
@@ -70,6 +75,7 @@ public class ConsoleInterface {
 			election.compute();
 			System.out.println();
 			
+			// Loop prompt for after computation
 			boolean postCompute = true;
 			while (postCompute) {
 				System.out.print("Post-Compute. Choose option [Show (W)inner, (S)ave to disk, (N)ew Election, (E)xit]: ");

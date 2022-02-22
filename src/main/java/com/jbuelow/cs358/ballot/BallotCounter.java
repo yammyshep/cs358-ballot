@@ -9,6 +9,10 @@ import com.jbuelow.cs358.ballot.parser.Parser;
 import com.jbuelow.cs358.ballot.parser.ParserFactory;
 import com.jbuelow.cs358.ballot.ui.ConsoleInterface;
 
+/**
+ * Main class, handles running and cli argument  parsing
+ *
+ */
 class BallotCounter {
 
 	public static void main(String[] args) {		
@@ -23,6 +27,7 @@ class BallotCounter {
 			boolean electionValid = true;
 			Election election = new Election();
 			
+			// Import each cli argument as a file
 			for (String argument : args) {
 				System.out.println("Importing " + argument + "...");
 				try {
@@ -39,6 +44,7 @@ class BallotCounter {
 				}
 			}
 			
+			// Compute election
 			System.out.println("Computing election...");
 			election.compute();
 			
@@ -48,6 +54,7 @@ class BallotCounter {
 				System.out.println("===== Check the console for errors and retry before using results =====");
 			}
 		} else {
+			// No arguments were given, simply hand off to the interactive console prompt
 			ConsoleInterface ui = new ConsoleInterface();
 			ui.start();
 		}
