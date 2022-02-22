@@ -26,6 +26,10 @@ public class Election {
 		this.resultVotes = new ArrayList<Map<Candidate, Integer>>();
 	}
 	
+	public List<Map<Candidate, Integer>> getResults() {
+		return resultVotes;
+	}
+	
 	public Candidate getWinner() {
 		if (resultWinner != null) {
 			return resultWinner;

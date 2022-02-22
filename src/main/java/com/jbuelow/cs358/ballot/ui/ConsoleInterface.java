@@ -1,6 +1,7 @@
 package com.jbuelow.cs358.ballot.ui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import com.jbuelow.cs358.ballot.Election;
 import com.jbuelow.cs358.ballot.data.Voter;
 import com.jbuelow.cs358.ballot.parser.Parser;
 import com.jbuelow.cs358.ballot.parser.ParserFactory;
+import com.jbuelow.cs358.ballot.writer.ElectionFileWriter;
 
 public class ConsoleInterface {
 	
@@ -93,7 +95,12 @@ public class ConsoleInterface {
 						e.printStackTrace();
 						continue;
 					}
-			        
+			        ElectionFileWriter efw = new ElectionFileWriter(election, new File(line));
+			        try {
+						efw.write();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 		        	break;
 		        case 'n':
 		        	postCompute = false;
